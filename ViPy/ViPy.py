@@ -178,6 +178,10 @@ class Matchup:
         except:
             return None
 
+
+
+
+
     def _get_betting_trend_page_url(self) -> str:
         """
         Returns url of Vegas Insider page displaying the matchup's betting trend
