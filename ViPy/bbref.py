@@ -88,6 +88,7 @@ def get_season_schedule(season_start_year: int) -> pandas.DataFrame:
             "PTS.1": "home_points",
             "Attend.": "attendance",
             "Notes": "notes",
+            season_df.columns[season_df.eq("OT").any()][0]: "overtime"
         },
         inplace=True,
     )
@@ -95,10 +96,10 @@ def get_season_schedule(season_start_year: int) -> pandas.DataFrame:
     # create indicator for whether game was a playoff game
     try:
         playoff_index = season_df.loc[season_df["Date"] == "Playoffs"].index[0]
-        season_df["playoff"] = (season_df.index > playoff_index)
+        season_df["playoff"] = season_df.index > playoff_index
     except:
         season_df["playoff"] = None
-    
+
     season_df = season_df.loc[season_df["Date"] != "Playoffs"]
 
     # create start datetime column; old seasons don't have time data
@@ -106,12 +107,10 @@ def get_season_schedule(season_start_year: int) -> pandas.DataFrame:
         season_df["Date"] + " " + season_df.get("Start (ET)", default="")
     )
 
-    # identify overtime and box score columns based on contents
-
     # drop unneeded columns
-    # season_df.drop(columns={"Date", "Unnamed: 6"}, inplace=True)
+    season_df.drop(columns={"Date", season_df.columns[season_df.eq("Box Score").any()][0]}, inplace=True)
 
-    # if "Start (ET)" in season_df:
-    #     season_df.drop(columns={"Start (ET)"}, inplace=True)
+    if "Start (ET)" in season_df:
+        season_df.drop(columns={"Start (ET)"}, inplace=True)
 
     return season_df
