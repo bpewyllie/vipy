@@ -19,7 +19,7 @@ jazz_raps = Matchup(league="nba", away="jazz", home="raptors", date="01-01-19")
 
 - Finish NBA money line history scraper
 
-  - Scrape and store NBA schedules from past 10 years from basketball reference.
+  - ~~Scrape and store NBA schedules from past 10 years from basketball reference.~~
 
   - Use schedule data to store matchup start time, results, and other data to 
   attributes.
