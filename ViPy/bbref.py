@@ -88,7 +88,7 @@ def get_season_schedule(season_start_year: int) -> pandas.DataFrame:
             "PTS.1": "home_points",
             "Attend.": "attendance",
             "Notes": "notes",
-            season_df.columns[season_df.eq("OT").any()][0]: "overtime"
+            season_df.columns[season_df.eq("OT").any()][0]: "overtime",
         },
         inplace=True,
     )
@@ -108,9 +108,31 @@ def get_season_schedule(season_start_year: int) -> pandas.DataFrame:
     )
 
     # drop unneeded columns
-    season_df.drop(columns={"Date", season_df.columns[season_df.eq("Box Score").any()][0]}, inplace=True)
+    season_df.drop(
+        columns={"Date", season_df.columns[season_df.eq("Box Score").any()][0]},
+        inplace=True,
+    )
 
     if "Start (ET)" in season_df:
         season_df.drop(columns={"Start (ET)"}, inplace=True)
 
+    season_df["season_start"] = season_start_year
+
     return season_df
+
+
+def get_nba_history(end_year, start_year=1949) -> pandas.DataFrame:
+    """
+    Retrieves pandas dataframe of all NBA games and their results over the period
+    defined by start_year (by default, the inaugural NBA season of 1949-1950) and
+    end_year.
+    """
+    history_df = pandas.DataFrame()
+
+    for year in range(start_year, end_year + 1):
+        history_df = history_df.append(get_season_schedule(year))
+
+    history_df.reset_index(inplace=True)
+    history_df.rename(columns={"index":"game_no"}, inplace=True)
+
+    return history_df
