@@ -1,3 +1,19 @@
+Metadata-Version: 2.1
+Name: VegasInsiderPy
+Version: 0.0.1
+Summary: Scraper for Vegas Insider historical odds and betting pages.
+Home-page: https://github.com/bpewyllie/vipy
+Author: Brady Wyllie
+Author-email: bpewyllie@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
 # vipy
  Python webscraper for Vegas Insider line history pages.
 
@@ -17,7 +33,7 @@ jazz_raps = Matchup(league="nba", away="jazz", home="raptors", date="01-01-19")
 
 ## To do
 
-- ~~Finish NBA money line history scraper~~
+- Finish NBA money line history scraper
 
   - ~~Scrape and store NBA schedules from past 10 years from basketball reference.~~
 
@@ -41,3 +57,4 @@ leagues.
 first half, second half, etc.)
 
 - Create scraper for VI betting trends pages.
+
